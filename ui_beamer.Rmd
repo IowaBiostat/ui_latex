@@ -1,0 +1,43 @@
+---
+title: "Presentation title"
+author: Test Case
+date: "`r Sys.Date()`"
+bibliography: refs.bib
+output: 
+  beamer_presentation:
+    theme: "Warsaw"
+    colortheme: "uiowa"
+#    keep_tex: true
+#    toc: true
+    slide_level: 2
+    incremental: true 
+    includes: 
+      in_header: 
+        - ./preamble.tex
+---
+
+# Title of first section 
+
+## A first slide 
+
+  - Point 1 
+  
+  - Point 2 has a \href{https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html}{link}
+  
+  - Point 3 refers to @paper01
+  
+  
+# Title of second section
+
+## A slide with math 
+
+$$\bY = \bX\bbeta + \bepsilon$$
+
+## Take home messages 
+
+  - Remember this 
+  
+  - And this 
+
+
+## References 
