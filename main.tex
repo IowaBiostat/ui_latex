@@ -21,50 +21,12 @@
 \usepackage{lipsum}
 \usepackage{hyperref}
 % below, I set links to appear in UI blue (could choose any color here)
-\hypersetup{colorlinks=true, citecolor=black, linkcolor=blue,urlcolor=uiblue}
+\hypersetup{colorlinks=true, citecolor=black, linkcolor=.,urlcolor=uiblue}
 
-\newcommand\blfootnote[1]{%
-  \begingroup
-  \renewcommand\thefootnote{}\footnote{#1}%
-  \addtocounter{footnote}{-1}%
-  \endgroup
-}
+% the next line imports the shortcuts from preamble.tex
+\input{preamble}
 
-\newcommand{\bY}{\boldsymbol{Y}}
-\newcommand{\bX}{\boldsymbol{X}}
-\newcommand{\bU}{\boldsymbol{U}}
-\newcommand{\bV}{\boldsymbol{V}}
-\newcommand{\bF}{\boldsymbol{F}}
-\newcommand{\bD}{\boldsymbol{D}}
-\newcommand{\bbeta}{\boldsymbol{\beta}}
-\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
-
-\def\be{\begin{equation*}}
-\def\ee{\end{equation*}}
-
-\def\E{{\mbox E}}
-
-\def\thhat{\hat{\theta}}
-
-
-\def\cmod{{\cal M}_{\theta}}
-\def\cmodfit{{\cal M}_{\thhat}}
-\def\tmod{{\cal M}_o}
-\def\fmod{{\cal M}_{f}}
-
-\def\obsdisc{\delta(Y,\theta)}
-\def\estdisc{\delta(Y,\thhat)}
-\def\valdisc{\delta(Z,\thhat)}
-\def\expdisc{\Delta(\tmod,\cmod)}
-
-\def\yb{Y^{\ast}}
-\def\thhatb{\thhat^{\ast}}
-
-\def\Cp{\mbox{C}_p}
-
-\def\bc{\widehat{\mbox{eo}}}
-
-\title[Footer Caption \hspace{3mm} Short title \hspace{1.5em} \insertframenumber\ of \inserttotalframenumber]
+\title[Footer Caption \hspace{3mm} Short title \hspace{9em} \insertframenumber\ of \inserttotalframenumber]
 {Full title of the presentation}
 \author[Author A, Author B]
 {A and B \\ \vspace{3mm} \\}
@@ -85,7 +47,7 @@
 % ---------------------------------------------------
 \begin{frame}{A first slide}
 
-
+$$\y = \X\beta + \eps$$
 
 \end{frame}
 % --------------------------------------------------------- 
