@@ -12,8 +12,13 @@
 \usepackage{bm}
 \usepackage{lipsum}
 \usepackage{hyperref}
-% below, I set links to appear in UI blue (could choose any color here)
-\hypersetup{colorlinks=true, citecolor=black, linkcolor=uiblue,urlcolor=uiblue}
+% below, I set links to appear in UI secondary colors (could choose any color here)
+\hypersetup{colorlinks=true,
+citecolor=uigold,
+linkcolor=uigold,
+urlcolor=uigold,
+pdfborder=0 0 1,  % Creates a box around links
+}
 
 \newcommand\blfootnote[1]{%
   \begingroup
@@ -21,16 +26,6 @@
   \addtocounter{footnote}{-1}%
   \endgroup
 }
-
-% most used commands -----------------
-\newcommand{\bY}{\boldsymbol{Y}}
-\newcommand{\bX}{\boldsymbol{X}}
-\newcommand{\bU}{\boldsymbol{U}}
-\newcommand{\bV}{\boldsymbol{V}}
-\newcommand{\bF}{\boldsymbol{F}}
-\newcommand{\bD}{\boldsymbol{D}}
-\newcommand{\bbeta}{\boldsymbol{\beta}}
-\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
 
 % Uppercase roman letters
 \providecommand{\A}{\mathbf{A}}

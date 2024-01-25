@@ -1,6 +1,8 @@
 ---
 title: "Presentation title"
+subtitle: "An example presentation"
 author: Test Case
+institute: Univeristy of ..., College/Dept. of ...
 date: "`r Sys.Date()`"
 bibliography: refs.bib
 output: 
@@ -9,11 +11,14 @@ output:
     colortheme: "uiowa"
 #    keep_tex: true
 #    toc: true
-    slide_level: 2
+    slide_level: 3
     incremental: true 
     includes: 
       in_header: 
         - ./preamble.tex
+header-includes:
+   - \AtBeginDocument{\title[Short title\hspace{18em} \insertframenumber\ of \inserttotalframenumber]{Full title}}
+   - \logo{\includegraphics[width=0.12\textwidth]{IOWA-logo.png}}
 ---
 
 # Title of first section 
@@ -31,7 +36,7 @@ output:
 
 ## A slide with math 
 
-$$\bY = \bX\bbeta + \bepsilon$$
+$$\Y = \X\beta + \eps$$
 
 ## Take home messages 
 
