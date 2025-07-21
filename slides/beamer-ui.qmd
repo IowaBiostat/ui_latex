@@ -9,13 +9,11 @@ output:
   beamer_presentation:
     theme: "Warsaw"
     colortheme: "uiowa"
-#    keep_tex: true
-#    toc: true
     slide_level: 3 # can toggle this to 2 if subsections are not needed
     incremental: true 
     includes: 
       in_header: 
-        - ./preamble.tex
+        - ./custom.tex
 header-includes:
    - \AtBeginDocument{\title[Short title\hspace{18em} \insertframenumber\ of \inserttotalframenumber]{Full title}}
    - \logo{\includegraphics[width=0.12\textwidth]{IOWA-logo.png}}

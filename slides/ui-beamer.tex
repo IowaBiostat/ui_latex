@@ -1,0 +1,59 @@
+% Toggles between whether printed as a handout or "bullet-per-slide"
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Warsaw}
+\usecolortheme{uiowa}
+\useoutertheme[subsection=false]{smoothbars}
+
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphics}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[english]{babel}
+\usepackage{caption}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{lipsum}
+\usepackage{hyperref}
+\input{custom}
+
+% This causes links to appear in UI blue
+\hypersetup{colorlinks=true, citecolor=black, linkcolor=.,urlcolor=uiblue}
+
+\title[Footer Caption \hspace{3mm} Short title \hspace{9em} \insertframenumber\ of \inserttotalframenumber]{Full title of the presentation}
+\author[Author A, Author B]{A and B}
+\date{\today}
+\institute[The University of Iowa]{The University of Iowa, College of (Fill in)}
+
+\logo{\includegraphics[width=0.12\textwidth]{iowa-logo.png}}
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Section 1}
+
+\begin{frame}{A first slide}
+
+  \citet{paper01} derived this important result:
+
+  $$\y = \X\beta + \eps$$
+
+\end{frame}
+
+\begin{frame}{Take-home messages}
+  \begin{itemize}    
+  \item Take home 1
+  \item Take home 2 
+  \end{itemize}
+  
+\end{frame}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

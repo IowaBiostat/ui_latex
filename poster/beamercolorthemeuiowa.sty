@@ -1,0 +1,67 @@
+% Gemini theme
+% https://github.com/anishathalye/gemini
+
+% ====================
+% Definitions
+% ====================
+
+\definecolor{uigold}{HTML}{FFCD00} 
+\definecolor{uigrey}{HTML}{63666A}
+\definecolor{uiblue}{HTML}{00558C}
+\definecolor{uigreen}{HTML}{00664F}
+\definecolor{uiorange}{HTML}{BD472A}
+\definecolor{lightgray}{RGB}{240, 240, 240}
+
+% ====================
+% Theme
+% ====================
+
+% Basic colors
+\setbeamercolor{palette primary}{fg=black,bg=white}
+\setbeamercolor{palette secondary}{fg=black,bg=white}
+\setbeamercolor{palette tertiary}{bg=black,fg=white}
+\setbeamercolor{palette quaternary}{fg=black,bg=white}
+\setbeamercolor{structure}{fg=black,bg=uigold}
+\setbeamercolor{titlelike}{parent=palette tertiary}
+
+% Headline
+\setbeamercolor{headline}{fg=black,bg=uigold}
+\setbeamercolor{headline rule}{bg=uigold}
+
+% Block
+\setbeamercolor{block title}{fg=black,bg=white}
+\setbeamercolor{block separator}{bg=uigold}
+\setbeamercolor{block body}{fg=black,bg=white}
+
+% Alert Block
+\setbeamercolor{block alerted title}{fg=black,bg=white}
+\setbeamercolor{block alerted separator}{bg=uigold}
+\setbeamercolor{block alerted body}{fg=black,bg=lightgray}
+
+% Example Block
+\setbeamercolor{block example title}{fg=black,bg=lightgray}
+\setbeamercolor{block example separator}{bg=uigold}
+\setbeamercolor{block example body}{fg=black,bg=lightgray}
+
+% Heading
+\setbeamercolor{heading}{fg=black}
+
+% Itemize
+\setbeamertemplate{itemize item}{\raise.1ex\hbox{\color{uigold}$\bullet$}} 
+\setbeamertemplate{itemize subitem}{\raise.1ex\hbox{\color{uigold}$\circ$}}
+\setbeamertemplate{itemize subsubitem}{\scriptsize\raise.1ex\hbox{\color{uigold}$\bullet$}}
+\setbeamertemplate{enumerate items}[default]
+\setbeamercolor{enumerate item}{fg=uigold}
+\setbeamercolor{enumerate subitem}{fg=uigold}
+\setbeamercolor{enumerate subsubitem}{fg=uigold}
+
+% Bibliography
+\setbeamercolor{bibliography item}{fg=black}
+\setbeamercolor{bibliography entry author}{fg=black}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography entry location}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=black}
+\setbeamertemplate{bibliography entry article}{}
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}

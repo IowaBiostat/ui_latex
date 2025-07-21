@@ -1,0 +1,225 @@
+\documentclass[final]{beamer}
+
+% ====================
+% Packages
+% ====================
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[size=custom,width=121,height=91,scale=1.0]{beamerposter}
+\usetheme{gemini}
+\usecolortheme{uiowa}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepackage{anyfontsize}
+\usepackage{caption} 
+
+% ====================
+% Lengths
+% ====================
+
+% If you have N columns, choose \sepwidth and \colwidth such that
+% (N+1)*\sepwidth + N*\colwidth = \paperwidth
+\newlength{\sepwidth}
+\newlength{\colwidth}
+\setlength{\sepwidth}{0.025\paperwidth}
+\setlength{\colwidth}{0.3\paperwidth}
+
+\newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
+\input{commands}
+
+% ====================
+% Title
+% ====================
+
+\title{Penalized Mixed Models to Adjust for Batch Effects and Unobserved Confounding in High Dimensional Regression}
+\author{Yujing Lu \and Patrick Breheny}
+\institute{Department of Biostatistics, University of Iowa}
+
+% Footer (optional)
+\footercontent{
+  \href{https://github.com/pbreheny/plmmr}{https://github.com/pbreheny/plmmr} \hfill
+  ENAR 2025, New Orleans LA \hfill
+  \href{mailto:yujing-lu@uiowa.edu}{yujing-lu@uiowa.edu}}
+% (can be left out to remove footer)
+
+% ====================
+% Logo (optional)
+% ====================
+
+% use this to include logos on the left and/or right side of the header:
+\logoright{\includegraphics[height=7cm]{iowa-logo-white.png}}
+% \logoleft{\includegraphics[height=7cm]{iowa-logo-white.png}}
+
+% ====================
+% Body
+% ====================
+
+\begin{document}
+
+\begin{frame}[t]
+  \begin{columns}[t]
+    \separatorcolumn
+
+    \begin{column}{\colwidth}
+
+      \begin{exampleblock}{Summary}
+        Confounding can lead to spurious associations. In high-dimensional studies, recent research has shown that even when confounders are unobserved, they can still leave traces upon multiple features, which makes it possible to adjust for them. 
+        
+        In this study, we assess how unobserved confounding introduces bias and variability into the data. We quantify the magnitude and structure of these effects by examining the ratios between bias, signal, and noise. We specifically investigate the impact of the amount and complexity of unobserved confounding on the performance of LASSO, principal components LASSO (PC-LASSO), and \textbf{penalized linear mixed models} (PLMMs). We find that: 
+        \begin{itemize}
+        \item \textbf{Both methods outperform regular LASSO} as the amount of confounding increases. 
+        \item \textbf{PLMMs are more robust in handling complex confounding structures} than PC-LASSO. 
+        \item In terms of preventing spurious associations, \textbf{PLMMs select signals more precisely than PC-LASSO. }
+        \item \textbf{PLMMs outperform PC-LASSO with semi-synthetic data} as well. 
+        \end{itemize}
+      \end{exampleblock}
+
+      \begin{block}{Linear Confounding Model}
+        We consider the following setting:
+        \as{
+          &\y = \X\bb + \Z\bg + \bvep, \\
+          &\X = \D + \Z\A^\top, \\
+          &\bvep \sim \Norm(\zero, \sigma_e^2\I_n), 
+        }
+        where 
+        \begin{itemize}
+        \item $\y$ is an $n\times 1$ vector of outcomes 
+        \item $\X$ is an $n\times p$ matrix of observed features 
+        \item $\Z$ is an $n\times q$ matrix of unobserved confounders 
+        \item $\D$ is an $n\times p$ matrix that is independent of $\Z$ 
+        \item $\A$ is an $p\times q$ matrix that controls the structure and strength of confounding 
+        \item $\bb \in \real^p$ and $\bg \in \real^q$ are the effects of features and confounders, respectively 
+        \end{itemize}
+      \end{block}
+
+      \begin{block}{References}
+
+        \small{
+          \begin{itemize}
+          \item Buja, A., Brown, L., Berk, R., George, E., Pitkin, E., Traskin, M., Zhang, K. and Zhao, L. (2019). Models as approximations i: Consequences illustrated with linear regression. Statistical Science, 34 523–544.
+          \item Ćevid, D., Bühlmann, P. and Meinshausen, N. (2020). Spectral deconfounding via perturbed sparse linear models. Journal of Machine Learning Research, 21 1–41.
+          \item Chernozhukov, V., Hansen, C. and Liao, Y. (2017). A lava attack on the recovery of sums of dense and sparse signals. The Annals of Statistics, 45 39 – 76.
+          \item Jia, J. and Rohe, K. (2015). Preconditioning the Lasso for sign consistency. Electronic Journal of Statistics, 9 1150 – 1172.
+          \end{itemize}
+        }
+
+      \end{block}
+      
+    \end{column}
+
+    \separatorcolumn
+
+    \begin{column}{\colwidth}
+
+      \begin{block}{Methods}
+        When the confounding effect $\Z\bg$ is unobserved, the two methods below adjust for it from different perspectives. 
+        
+        \textbf{PC-LASSO}: 
+        PC-LASSO makes adjustments in the mean structure by including principal components (PCs) derived from the observed features $\X$, in the hope that the unobserved confounding may be captured by the leading PCs. $\bbh$ is obtained by minimizing 
+        \as{\frac{1}{2n}\norm{\y-\C\ba-\X\bb}_2^2 + \lambda\norm{\bb}_1,}
+        where $\C$ is an $n\times k$ matrix containing the first $k$ PCs. $\ba \in \real^k$ is not penalized. 
+
+        \textbf{PLMM}: 
+        Instead of adjusting the mean structure, PLMM carries out its adjustment through the variance, treating the unobserved confounding as a random effect with mean zero and $\Var(\Z\bg) = \sigma_s^2\K$. Then $\y \sim \Norm(\X\bb, \bS)$, where $\bS=\sigma_s^2\K + \sigma_e^2\I_n$. Pre-multiplying $\X$ and $\y$ by $\bS^{-1/2}$ so that $\bb$ can be estimated by minimizing 
+        \as{
+          \frac{1}{2n}\norm{\bS^{-1/2}\y - \bS^{-1/2}\X\bb}_2^2 + \lambda\norm{\bb}_1.
+        }
+        $\K$ can be estimated using $\frac{1}{p}\X\X^\top$ after standardizing $\X$. 
+      \end{block}
+
+      \begin{block}{Decomposition of Confounding}
+        When $\Z$ is unobserved, not including $\Z$ in the linear model results in model misspecification. The best population linear approximation to $y$ is obtained by only projecting onto $\X$, so that 
+        \as{
+          \tilde{\bb} = \Ex(\x\x^\top)^{-1}\Ex\left(\x(\x^\top\bb + \z^\top\bg)\right) = \bb + \btau,   
+        }
+        where $\btau = \Ex(\x\x^\top)^{-1}\Ex(\x\z^\top)\bg$. If $\d$ and $\z$ follow a standard normal distribution, $\btau = (\I_p + \A\A^\top)^{-1}\A\bg$. 
+        
+        The least squares estimator $\bbh$ will converge to $\bb + \btau$, not $\bb$. $\btau$ is the \textbf{bias} that is introduced by hidden confounding. It can also be interpreted as the extent of confounding effect $\Z\bg$ that can be projected onto $\X$. The part that cannot be projected onto $\X$ enters the model as \textbf{noise}: $\psi=\z^\top\bg-\x^\top\btau$. 
+        
+        Partitioning the unobserved confounding effects into \textbf{bias and noise} allows us to compute 
+        \as{
+          \text{Bias-to-Noise Ratio (BNR) } &= \frac{\btau^\top\Var(\x)\btau}{\Var(\psi\given\btau) + 1}, \\
+          \text{Signal-to-Noise Ratio (SNR) } &= \frac{\bb^\top\Var(\x)\bb}{\Var(\psi\given\btau) + 1}. 
+        }
+      \end{block}
+
+      \vspace{1mm} 
+
+      \begin{block}
+
+        \small{
+          \begin{itemize}
+          \item Leek, J. T., Scharpf, R. B., Bravo, H. C., Simcha, D., Langmead, B., Johnson, W. E., Geman, D., Baggerly, K. and Irizarry, R. A. (2010). Tackling the widespread and critical impact of batch effects in high-throughput data. Nature Reviews Genetics, 11 733–739.
+          \item Lippert, C., Listgarten, J., Liu, Y., Kadie, C. M., Davidson, R. I. and Heckerman, D. (2011). Fast linear mixed models for genome-wide association studies. Nature Methods, 8 833–835.
+          \item Wang, Y. and Blei, D. M. (2019). The blessings of multiple causes. Journal of the American Statistical Association, 114 1574–1596.
+          \end{itemize}
+        }
+
+      \end{block}
+      
+    \end{column}
+
+    \separatorcolumn
+
+    \begin{column}{\colwidth}
+      
+      \begin{block}{Results} 
+        Keep $\text{SNR}=1.5, \Var(\psi\given \btau)=1$, changing BNR.  
+        \begin{figure}
+          \centering
+          \includegraphics[width=\linewidth]{plots/bnrTPR.pdf}
+        \end{figure}
+
+        $\text{BNR}=1.5, \text{SNR}=1.5, \Var(\psi\given \btau)=1$. 
+        \begin{figure}
+          \centering
+          \includegraphics[width=\linewidth]{plots/pcnum_mse.pdf}
+        \end{figure}
+
+        \vspace{15mm}
+        
+        \begin{figure}[h!]
+          \begin{minipage}{0.5\textwidth}
+            \text{Changing complexity}
+            \centering
+            \includegraphics[width=\textwidth]{plots/qMSE.pdf} 
+          \end{minipage}
+          \hspace{0.1cm} % Adjust space between the plot and the table
+          \begin{minipage}{0.45\textwidth}
+            \text{Semi-synthetic data}
+            \text{with real }$\X$\text{, }$\Z$
+            \large{
+              \begin{tabular}{rrrr}
+                \hline
+                $g$ & 0 & 1 & 2 \\
+                \hline
+                \multicolumn{3}{l}{\textbf{Relative MSE to LASSO}} \\
+                \quad PC-LASSO & 1.99 & 1.32 & 1.16 \\
+                \quad PLMM     & 1.38 & 0.92 & 0.84 \\
+                \multicolumn{3}{l}{\textbf{pAUC at Model Size 50}} \\
+                \quad LASSO    & 12.78 & 10.46 & 6.95 \\
+                \quad PC-LASSO & 27.67 & 26.20 & 23.32 \\
+                \quad PLMM     & 35.56 & 34.12 & 29.58 \\
+                \multicolumn{3}{l}{\textbf{Average Model Size}} \\
+                \quad LASSO    & 23.70 & 49.50 & 60.12 \\
+                \quad PC-LASSO & 68.36 & 84.80 & 88.36 \\
+                \quad PLMM     & 25.80 & 23.80 & 23.90 \\
+                \hline
+              \end{tabular}
+            }
+          \end{minipage}
+        \end{figure}
+        
+      \end{block}
+
+    \end{column}
+
+    \separatorcolumn
+  \end{columns}
+\end{frame}
+
+\end{document}
