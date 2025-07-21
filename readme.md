@@ -26,7 +26,7 @@ This folder currently includes the poster theme (`beamerthemegemini.sty`), color
 
 The final poster looks like this:
 
-[![Poster Thumbnail](poster/poster.webp)](poster/poster.pdf)
+[![Poster Thumbnail](https://raw.githubusercontent.com/IowaBiostat/ui_latex/refs/heads/master/poster/thumb.webp)](poster/poster.pdf)
 
 The poster is based on the [Gemini poster theme](https://github.com/anishathalye/gemini).
 
